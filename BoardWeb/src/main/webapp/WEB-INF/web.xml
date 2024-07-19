@@ -3,24 +3,20 @@
   <display-name>BoardWeb</display-name>
   
   <!-- 서블릿과 실행 url 패턴을 등록 -->
-  <!--  old version -->
   <servlet>
   <servlet-name>sample</servlet-name>
   <servlet-class>com.yedam.web.SampleServlet</servlet-class>
   </servlet>
-    <!--  new version -->
   <servlet-mapping>
   <servlet-name>sample</servlet-name>
 	<url-pattern>/SampleServlet</url-pattern>
   </servlet-mapping>
   
   
-    <!--  old version -->
   <servlet>
   <servlet-name>front</servlet-name>
   <servlet-class>com.yedam.web.FrontController</servlet-class>
   </servlet>
-    <!--  new version -->
   <servlet-mapping>
   <servlet-name>front</servlet-name>
 	<url-pattern>*.do</url-pattern>

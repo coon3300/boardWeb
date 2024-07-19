@@ -59,7 +59,26 @@ public class AppTest {
 		
 		BoardService svc = new BoardServiceImpl();
 //		svc.boardList().forEach(svc -> System.out.println(svc));
-		svc.boardList().forEach(System.out::println);
+//		svc.boardList().forEach(System.out::println);
+//		System.out.println("- End -");
+		
+//		svc.boardList(2).forEach(System.out::println);
+		
+		SearchVO search = new SearchVO();
+//		search.setSearchCondition("T");
+//		search.setKeyword("test");
+//		search.setPage(1);
+		
+//		search.setSearchCondition("W");
+//		search.setKeyword("chacha");
+//		search.setPage(1);
+		
+		search.setSearchCondition("TW");
+		search.setKeyword("웹은");
+		search.setPage(1);
+		
+		svc.boardList(search).forEach(System.out::println);
 		System.out.println("- End -");
+		
 	}
 }
