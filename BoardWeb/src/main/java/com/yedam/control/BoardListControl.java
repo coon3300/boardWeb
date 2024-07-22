@@ -43,7 +43,6 @@ public class BoardListControl implements Control{
 		int totalCnt = svc.totalCount(search);// svo
 		PageDTO pageDTO = new PageDTO(Integer.parseInt(page),totalCnt);
 		req.setAttribute("paging", pageDTO);
-		
 		req.setAttribute("keyword", kw);
 		req.setAttribute("searchCondition", sc);
 		
