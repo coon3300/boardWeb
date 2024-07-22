@@ -33,7 +33,7 @@ import com.yedam.control.RemoveBoard;
 
 public class FrontController extends HttpServlet{
 	
-	//			Control 인터페이스 타입
+	//			Control 인터페이스 타입의 맵
 	Map<String, Control> map ;
 
 	public FrontController() {
@@ -79,8 +79,7 @@ public class FrontController extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		// boardList.do : 목록
-		// addBoard.do : 등록
+        // 예를 들어, boardList.do: 목록, addBoard.do: 등록과 같은 요청을 처리합니다.
 		String uri = req.getRequestURI(); // URL(http://localhost/BoardWeb/boardList.do) vs. URI(BoardWeb/*.do)
 		String context = req.getContextPath(); // 프로젝트 명.(/BoardWeb)
 		String path = uri.substring(context.length()); // "/*.do"
@@ -89,6 +88,7 @@ public class FrontController extends HttpServlet{
 		System.out.println("context : " + context);
 		System.out.println("path : " + path);
 		
+        // 요청에 해당하는 Control 객체를 맵에서 찾아서 실행합니다.
 		Control sub = map.get(path);
 		sub.exec(req, resp);
 		

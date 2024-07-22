@@ -10,18 +10,23 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 public class DataSource {
 
 	public static SqlSessionFactory getInstance() {
+        // MyBatis 설정 파일의 경로
 		
 		String resource = "config/mybatis-config.xml";	//cofig/
-//		InputStream inputStream;
+        // 설정 파일을 읽기 위한 InputStream 선언
 		InputStream inputStream = null;
+		
 		try {
+            // MyBatis 설정 파일을 리소스로부터 스트림으로 로드
 			inputStream = Resources.getResourceAsStream(resource);
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+        // 설정 파일을 사용하여 SqlSessionFactory 빌드
 		SqlSessionFactory sqlSessionFactory = new SqlSessionFactoryBuilder().build(inputStream);
 		
+        // SqlSessionFactory 인스턴스를 반환
 		return sqlSessionFactory;
 		
 	}
