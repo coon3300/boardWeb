@@ -30,7 +30,7 @@ public class AddBoardControl implements Control{
 				, savePath // 2.업로드 경로.
 				, maxSize // 3.최대 크기 지정.
 				, "UTF-8" // 4.파일명 해석 인코딩방식지정.
-				, new DefaultFileRenamePolicy() // 5.리네일정책.
+				, new DefaultFileRenamePolicy() // 5.리네임정책.
 		);
 		writer = request.getParameter("writer");
 		content = request.getParameter("content");
