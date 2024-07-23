@@ -18,14 +18,13 @@ public class MemberListControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-        // MemberService 객체를 생성합니다.
 		MemberService mvc = new MemberServiceImpl();
 		
 		String order = req.getParameter("order");
 		
+		// 정렬 기준이 null인 경우 기본값을 "member_id"로 설정.
 		order = order == null ? "member_id" : order;
 		
-        // 검색 조건에 맞는 게시글 목록을 가져옵니다.
 		List<MemberVO> list = mvc.userList("User", order);
 		
         // 요청 객체에 게시글 목록을 속성으로 추가합니다.
