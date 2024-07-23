@@ -12,7 +12,8 @@ public class ActionControl implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/jsp/actionForm.jsp") //
+//		req.getRequestDispatcher("WEB-INF/jsp/actionForm.jsp") //
+		req.getRequestDispatcher("baord/actionForm.tiles") //
 		.forward(req, resp); // 페이지 재지정
 	}
 

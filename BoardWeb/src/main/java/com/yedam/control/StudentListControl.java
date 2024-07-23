@@ -28,7 +28,8 @@ public class StudentListControl implements Control {
 //	}
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/jsp/studentList.jsp") //
+//		req.getRequestDispatcher("WEB-INF/jsp/studentList.jsp") //
+		req.getRequestDispatcher("board/studentList.tiles") //
 		.forward(req, resp); // 페이지 재지정
 	}
 

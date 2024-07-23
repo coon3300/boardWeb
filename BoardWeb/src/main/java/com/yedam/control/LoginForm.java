@@ -12,7 +12,8 @@ public class LoginForm implements Control {
 
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		req.getRequestDispatcher("WEB-INF/jsp/loginForm.jsp")//
+//		req.getRequestDispatcher("WEB-INF/jsp/loginForm.jsp")//
+		req.getRequestDispatcher("board/loginForm.tiles")//
 		.forward(req, resp); // 페이지 재지정
 	}
 
