@@ -17,8 +17,8 @@
 		<!--  select	count(1)-->
 		select	*
 		from		tbl_member
-		where		responsibility = #{res}
-		order by ${order}
+		where		responsibility = #{res} <!-- #: 23 '23'-->
+		order by ${orderBy} <!-- $: 입력된 문자 그대로 -->
   </select>
   
   <select id="studentList" resultType="student">

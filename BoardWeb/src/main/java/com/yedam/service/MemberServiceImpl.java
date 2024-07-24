@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	@Override
-	public List<MemberVO> userList(String res, String order) {
+	public List<MemberVO> memberList(String res, String order) {
 		return mapper.selectUser(res, order);
 	}
 

@@ -38,5 +38,11 @@
   <definition name="WILDCARD:admin/*" extends="myapp.admin">
     <put-attribute name="body" value="/WEB-INF/jsp/admin/{1}.jsp" /> <!-- jsp/admin -->
   </definition>
+  
+  <definition name="WILDCARD:*/*" extends="myapp.user">
+    <put-attribute name="body" value="/WEB-INF/jsp/{1}/{2}.jsp" /> <!-- 1:폴더명 2:파일명 -->
+  </definition>
+
+
 
 </tiles-definitions>

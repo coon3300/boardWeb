@@ -20,15 +20,21 @@ public class MemberListControl implements Control {
 		
 		MemberService mvc = new MemberServiceImpl();
 		
-		String order = req.getParameter("order");
-		
+		String orderBy = req.getParameter("orderBy");
 		// 정렬 기준이 null인 경우 기본값을 "member_id"로 설정.
-		order = order == null ? "member_id" : order;
+		orderBy = orderBy == null ? "member_id" : orderBy;
 		
-		List<MemberVO> list = mvc.userList("User", order);
+		String res = req.getParameter("res");
+		// 정렬 기준이 null인 경우 기본값을 "User"로 설정.
+		res = res == null ? "User" : res;
+		
+//		List<MemberVO> list = mvc.memberList("User", order);
+		List<MemberVO> list = mvc.memberList(res, orderBy);
 		
         // 요청 객체에 게시글 목록을 속성으로 추가합니다.
-		req.setAttribute("userList", list);
+		req.setAttribute("memberList", list);
+		req.setAttribute("res", res);
+		req.setAttribute("orderBy", orderBy);
 	
 		req.getRequestDispatcher("admin/memberList.tiles").forward(req, resp);
 	}

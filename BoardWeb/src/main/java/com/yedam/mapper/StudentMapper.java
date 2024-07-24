@@ -19,5 +19,5 @@ public interface StudentMapper {
 	// 클래스 필드 2개 이상 포함하는 객체를 전달할 경우는 매개변수로 객체 1개 전달
 	MemberVO selectMember(@Param("id") String id, @Param("pw") String pw);
 	
-	List<MemberVO> selectUser(@Param("res") String res, @Param("order") String order); 
+	List<MemberVO> selectUser(@Param("res") String res, @Param("orderBy") String orderBy); 
 }

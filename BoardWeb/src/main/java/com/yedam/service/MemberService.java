@@ -10,6 +10,6 @@ public interface MemberService {
 //	boolean loginCheck(String id, String pw);
 	MemberVO loginCheck(String id, String pw);
 	
-	List<MemberVO> userList(String res, String order);
+	List<MemberVO> memberList(String res, String order);
 	
 }
