@@ -52,7 +52,7 @@ document.getElementById('modBtn').addEventListener('click',function(e){
 
 // 체크 박스에 클릭이벤트 추가.
 document.getElementById('cBox').addEventListener('change',function(e){	
-	let cb = document.getElementById('cBox').value;
+	let cb = document.getElementById('cBox').checked;
 
 	
 	// 화면상에 있는 tr을 대상으로 변경해야하니까...
@@ -60,8 +60,9 @@ document.getElementById('cBox').addEventListener('change',function(e){
 		// tr의 첫 번째 자식요소의 innerHTML : 이름. 비료 fname의 value 같을 때
 		// faddress, height의 value를 tr의 두 번째, 세번째 자식요소의 innerHTML에 대입.
 
-			tr.children[4].innerHTML = cb;
-			//tr.children[4].setAttribute('checked','true');
+			//tr.children[4].innerHTML = cb;
+			//tr.children[4].children[0].setAttribute('checked',cb);
+			tr.children[4].children[0].checked =cb;
 	});
 	
 })
