@@ -41,6 +41,7 @@ public class AddStudent implements Control {
 			map.put("retCode", "Fail");
 			map.put("retVal", null);
 		}
+		resp.setContentType("text/json;charset=utf-8");
 		resp.getWriter().print(gson.toJson(map)); // 객체 -> json
 	}
 
