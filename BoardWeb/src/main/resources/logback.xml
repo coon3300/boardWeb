@@ -13,6 +13,12 @@
     <!-- <level value="trace"/> -->
     <level value="debug"/>
   </logger>
+ 
+   <logger name="com.yedam.control.RemoveStudent">
+    <!-- <level value="trace"/> -->
+    <level value="debug"/>
+  </logger> 
+  
   <root level="error">
     <appender-ref ref="stdout"/>
   </root>

@@ -9,6 +9,7 @@ import com.yedam.common.SearchVO;
 import com.yedam.mapper.StudentMapper;
 import com.yedam.vo.BoardVO;
 import com.yedam.vo.MemberVO;
+import com.yedam.vo.StudentVO;
 
 public class MemberServiceImpl implements MemberService{
 
@@ -25,6 +26,22 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public List<MemberVO> memberList(String res, String order) {
 		return mapper.selectUser(res, order);
+	}
+
+	@Override
+	public List<StudentVO> studentList() {
+		return mapper.studentList();
+	}
+
+	@Override
+	public boolean removeStudent(String sno) {
+		return mapper.deleteStudent(sno) == 1;
+	}
+
+	@Override
+	public boolean addStudent(StudentVO svo) {
+		return mapper.insertStudent(svo) == 1;
+
 	}
 
 	

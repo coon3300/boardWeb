@@ -13,6 +13,7 @@ public interface StudentMapper {
 	StudentVO selectOne(String sno);
 
 	int insertStudent(StudentVO svo);
+	int deleteStudent(String stdNo);
 	
 	// 로그인 체크.
 	// mapper.xml에 2개 이상 매개변수로 전달할 때 @Param 사용

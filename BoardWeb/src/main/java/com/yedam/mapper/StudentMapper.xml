@@ -38,7 +38,7 @@
   
   <delete id="deleteStudent" parameterType="string">
   delete tbl_student 
-  where std_no = #{stdNo}  
+  where std_no = #{sno}  
   </delete>
 
   <select id="selectOne" parameterType="string" resultType="student">
