@@ -1,15 +1,17 @@
 package com.yedam.common;
 
+import org.apache.ibatis.reflection.SystemMetaObject;
 import org.apache.ibatis.session.SqlSession;
 
-import com.yedam.mapper.BoardMapper;
-import com.yedam.service.BoardService;
-import com.yedam.service.BoardServiceImpl;
-import com.yedam.vo.BoardVO;
+import com.yedam.mapper.ReplyMapper;
+import com.yedam.service.ReplyService;
+import com.yedam.service.ReplyServiceImpl;
+import com.yedam.vo.ReplyVO;
 
 public class AppTest {
 	
 	public static void main(String[] args) {
+		/**
 //		SqlSession sqlSession = DataSource.getInstance().openSession();
 		SqlSession sqlSession = DataSource.getInstance().openSession(true); // 자동 커밋.
 		
@@ -79,6 +81,38 @@ public class AppTest {
 		
 		svc.boardList(search).forEach(System.out::println);
 		System.out.println("- End -");
+		 * 
+		 */
+/**
+		SqlSession sqlSession = DataSource.getInstance().openSession(true); // 자동 커밋.
+		
+		ReplyMapper mapper = sqlSession.getMapper(ReplyMapper.class);
+		
+		ReplyService rvc = new ReplyServiceImpl();
+
+		
+		ReplyVO rvo = new ReplyVO();
+		rvo.setReplyContent("등록 연습");
+		rvo.setReplyer("user03");
+		rvo.setBoardNo(171);
+				
+		if(rvc.removeReply(1)) {
+			System.out.println("삭제완료!");
+		}
+
+		rvc.replyList(171).forEach(System.out::println);
+		System.out.println("-- end --");
+ * 		
+ */
+		ReplyService svc = new ReplyServiceImpl();
+		
+		SearchVO search = new SearchVO();
+		search.setBno(170);
+		search.setPage(1);
+		
+		svc.replyList(search).forEach(System.out::println);
+		
+		System.out.println("-- end --");
 		
 	}
 }

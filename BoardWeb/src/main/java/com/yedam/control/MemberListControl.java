@@ -18,7 +18,7 @@ public class MemberListControl implements Control {
 	@Override
 	public void exec(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
-		MemberService mvc = new MemberServiceImpl();
+		MemberService svc = new MemberServiceImpl();
 		
 		String orderBy = req.getParameter("orderBy");
 		// 정렬 기준이 null인 경우 기본값을 "member_id"로 설정.
@@ -28,8 +28,8 @@ public class MemberListControl implements Control {
 		// 정렬 기준이 null인 경우 기본값을 "User"로 설정.
 		res = res == null ? "User" : res;
 		
-//		List<MemberVO> list = mvc.memberList("User", order);
-		List<MemberVO> list = mvc.memberList(res, orderBy);
+//		List<MemberVO> list = svc.memberList("User", order);
+		List<MemberVO> list = svc.memberList(res, orderBy);
 		
         // 요청 객체에 게시글 목록을 속성으로 추가합니다.
 		req.setAttribute("memberList", list);
