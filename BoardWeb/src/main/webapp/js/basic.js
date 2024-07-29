@@ -1,109 +1,78 @@
-/**
- * 
- */
+// 등록 버튼에 클릭이벤트 추가
+document.getElementById('addBtn').addEventListener('click', function(e) {
+	let name = document.getElementById('fname').value;
+	let address = document.getElementById('faddress').value;
+	let heigth = document.getElementById('heigth').value;
 
- console.log("basic.js");
- 
- let name = "이창호";
- let address = '대구 100번지';
- let age = 15;
- 
- const myInfo = {name: name, address: address, age: age};
- const myInfoAry = {name: name, address: address, age: age};
- 
- 
- console.log(`이름은 ${name}이고 주소는 ${address}입니다. ${age > 20 ? '성년' : '미성년'}입니다.`);
- 
- name = 20;
- 
- console.log(typeof name);
- 
- const obj = {
-	 name: "홍길동",
-	 age: 20,
-	 myInfo: function(){
-		 return this.name + ', ' + this.age;
-	 }
- }
- 
- console.log(`이름은 ${obj.name}, 나이는 ${obj['age']}`);
- 
- console.log(obj.myInfo());
- 
- for(let prop in obj){
-	 console.log(`속성은 ${prop}이고 값은 ${obj[prop]}`);
-	 }
+	if(!name || !address || !heigth){
+			alert('값을 입력하세요');
+			return;
+	}
 
-const ary = [1, 2, 3];
-ary.push(4);
-ary.unshift(5);
-// 5 1 3
+	let friend = { name, address, heigth }
 
-for (let num of ary){
-	console.log(`값은 ${num}입니다.`);
-} 	 
+	console.log(name);
 
-ary.forEach(function(item, idx, ary){
+	// tr 만드는 부분
+	let tr = makeTr(friend);
+	list.appendChild(tr);
 
-	if(idx == 0 || idx == ary.length - 1){
-		console.log(item);
-	}	
-}); 
+
+
+	alert('OK');
+
+	fname.value = '';
+	faddress.value = '';
+	heigth.value = '';
+
+})
+
 
 const friends = [
-	{name: "홍길동", address: "대구 111번지", height: 170},
-	{name: "가나다", address: "부산 222번지", height: 175},
-	{name: "어어어", address: "대전 333번지", height: 180}
-];
+	{ name: "북조선", address: "개성공단", height: 170 },
+	{ name: "김감치", address: "파판월드", height: 167 },
+	{ name: "안예림", address: "능금마을", height: 160 }
+]
 
-friends.forEach(function(friend){
-	// friend 정보를 한 건 씩 반복.
-	for(let prop in friend){
-		console.log(prop + ', ' + friend[prop]);
-	}
-	console.log(`---------------------------=============`);
-});	 
-	 
-	 
-// createElement('span') => <span></span>.
-// innerText/innerHTML = 값.
-// 부모.appendChild(자식) => <부모><자식/></부모>	 
-console.clear();
-makeDom();
-function makeDom(){
-	// for.. in
-		for(let prop in myInfo){
-		let span = document.createElement('span');
-		span.innerHTML = myInfo[prop] + ' ';
-		document.getElementById('show').appendChild(span);
-		console.log(span);
-		}
-	
-		for(let prop in myInfoAry){
-		let span = document.createElement('span');
-		span.innerHTML = myInfo[prop] + ' ';
-		document.getElementById('show').appendChild(span);
-		console.log(span);
-		}
-
-		for(let prop of myInfoAry){
-		let span = document.createElement('span');
-		span.innerHTML = prop + ' ';
-		document.getElementById('show').appendChild(span);
-		console.log(span);
-		}
-		
-		myInfoAry.forEach(function(prop){
-			let span = document.createElement('span');
-			span.innerHTML = prop + ' ';
-			document.getElementById('show').appendChild(span);
-			console.log(span);
-		})
-		
-
-
+makeList();
+function makeList() {
+	// <tr><td>값1</td><td>값2</td><td>값3</td><td><button>삭제</button></td></tr>
+	friends.forEach(function(friend) {
+			let tr = makeTr(friend);
+			document.getElementById('list').appendChild(tr);
+	});
 }
 
+// friend -> tr 생성
+function makeTr(friend = { name: 'Hong', address: 'Seoul', height: 177 }) {
+	// tr 만드는 부분
+	let tr = document.createElement('tr');
+	tr.addEventListener('click',function(e){
+
+	document.getElementById('fname').value = tr.children[0].innerHTML;
+	document.getElementById('faddress').value = tr.children[1].innerHTML;
+	document.getElementById('heigth').value = tr.children[2].innerHTML;
 
 
-	 
+			console.log(e);
+	});
+
+	for (let prop in friend) {
+			let td = document.createElement('td');
+			td.innerHTML = friend[prop];
+			tr.appendChild(td);
+	}
+	// 삭제버튼
+	let td = document.createElement('td');
+	let btn = document.createElement('button');
+	btn.addEventListener('click', function(e) {
+			e.target.parentElement.parentElement.remove();
+			console.log(e);
+	})
+	btn.innerHTML = '삭제';
+	td.appendChild(btn)
+	tr.appendChild(td)
+
+
+	return tr;
+}
