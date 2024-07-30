@@ -14,6 +14,9 @@ document.querySelector('#addReply')//
 		}
 		let parm = { bno, replyer, content }
 
+		page = 1;
+		showPage();
+
 		svc.addReply(parm, function() {
 			// 등록완료 => 화면에 등록된 글 추가.
 			let result = JSON.parse(this.responseText);
@@ -26,16 +29,28 @@ document.querySelector('#addReply')//
 
 	});
 
-// 댓글목록 출력.
-svc.replyList({ bno, page }, function() {
-	// 페이지 로드하면서 목록을 출력.
-	let result = JSON.parse(this.response);
-	result.forEach(reply => {
-		replyList.appendChild(makeRow(reply));
+
+
+function showPage(){
+	// 댓글목록 출력.
+	svc.replyList({ bno, page }, function() {
+		replyList.querySelectorAll('li').forEach((li, idx) => {
+			if (idx != 0) {
+				li.remove();
+			}
+		})		
+		
+		// 페이지 로드하면서 목록을 출력.
+		let result = JSON.parse(this.response);
+		result.forEach(reply => {
+			replyList.appendChild(makeRow(reply));
+		});
+		// 실제 데이터...출력.
+		svc.pagingCount(bno, createPageList);
 	});
-	// 실제 데이터...출력.
-	svc.pagingCount(bno, createPageList);
-});
+}
+
+showPage();
 
 // reply => row 생성.
 function makeRow(reply = {}) {
@@ -57,6 +72,7 @@ function deleteReplyFnc(e) {
 		if (result.retCode == 'Success') {
 			alert('삭제성공!');
 			document.querySelector('li[data-rno="' + rno + '"]').remove();
+			showPage();
 		} else {
 			alert('삭제실패!!');
 		}
@@ -158,20 +174,7 @@ function pageMove() {
 			item.addEventListener('click', function(e) {
 				page = item.dataset.page; // Previous, Next
 				// service에서 목록을 출력하는 메소드 호출.
-				svc.replyList({ bno, page }, function() {
-					// 기존목록을 삭제.
-					replyList.querySelectorAll('li').forEach((li, idx) => {
-						if (idx != 0) {
-							li.remove();
-						}
-					})
-					let result = JSON.parse(this.response);
-					result.forEach(reply => {
-						replyList.appendChild(makeRow(reply));
-					});
-					// 페이지 새로 출력.
-					svc.pagingCount(bno, createPageList);
-				}); // end of svc.replyList.
+				showPage();
 			}) // end of click event.
 
 		});
