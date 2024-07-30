@@ -45,8 +45,8 @@ public class ImageDownload implements Control {
 			//fileCreate(imgSrc, prdName); 12,600 ->12600
 			dml += dataCreate(prodCode, prdName, prodPrice);
 //			System.out.println(imgSrc + ", " + prdName + ", " + prodCode + ", " + prodPrice);
-			System.out.println(dml);
 		}
+		System.out.println(dml);
 		
 //		while(true) {
 //			int read = sis.read();
