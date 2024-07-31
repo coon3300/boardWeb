@@ -1,12 +1,11 @@
 package com.yedam.common;
 
-import org.apache.ibatis.reflection.SystemMetaObject;
-import org.apache.ibatis.session.SqlSession;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-import com.yedam.mapper.ReplyMapper;
-import com.yedam.service.ReplyService;
-import com.yedam.service.ReplyServiceImpl;
-import com.yedam.vo.ReplyVO;
+import com.yedam.service.MemberService;
+import com.yedam.service.MemberServiceImpl;
 
 public class AppTest {
 	
@@ -104,6 +103,8 @@ public class AppTest {
 		System.out.println("-- end --");
  * 		
  */
+		
+		/**
 		ReplyService svc = new ReplyServiceImpl();
 		
 		SearchVO search = new SearchVO();
@@ -111,6 +112,20 @@ public class AppTest {
 		search.setPage(1);
 		
 		svc.replyList(search).forEach(System.out::println);
+		
+		System.out.println("-- end --");
+		 * 
+		 */
+		MemberService svc = new MemberServiceImpl();
+		List<Map<String, Object>> list = svc.getCountByMember();
+		
+		for(Map<String, Object> map : list) {
+			System.out.println("----------------------");
+			Set<String> keyset = map.keySet();
+			for(String key : keyset) {
+				System.out.println(key + ", "+ map.get(key));
+			}
+		}
 		
 		System.out.println("-- end --");
 		

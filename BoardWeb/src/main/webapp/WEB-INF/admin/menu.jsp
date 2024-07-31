@@ -25,7 +25,7 @@
 				<nav class="sb-sidenav-menu-nested nav">
 					<a class="nav-link" href="memberList.do">회원목록</a>
 					<!-- memberList.do -->
-					<a class="nav-link" href="layout-sidenav-light.html">회원 권한 관리</a>
+					<a class="nav-link" href="googleChart.do">차트(작성자별 건수 집계)</a>
 				</nav>
 			</div>
 			<a class="nav-link collapsed" href="#" data-bs-toggle="collapse"
