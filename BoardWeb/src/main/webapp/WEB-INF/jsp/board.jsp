@@ -1,16 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<link rel="stylesheet" href="https://cdn.datatables.net/2.1.4/css/dataTables.dataTables.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
-<style>
-	div.reply ul{
-		list-style-type: none;
-	}
-	div.reply span {
-		display: inline-block;
-	}
-</style>
+<script src="https://cdn.datatables.net/2.1.4/js/dataTables.js"></script>
 
 <h3>게시판 상세화면(board.jsp)</h3>
 
@@ -75,43 +68,24 @@
 		<!-- 등록. -->
 		
 		<div class="header">
-			<input class="col-sm-8" id="content">
-			<button class="col-sm-3" id="addReply">댓글 등록</button>
+			<input class="col-sm-6" id="content">
+			<button class="col-sm-2" id="addReply">댓글 등록</button>
+			<button class="col-sm-2" id="deleteReply">댓글 삭제</button>
 		</div>		
 		
 		<!-- 목록. -->
-		<div class="content">
-			<ul id="replyList">
-				<li style="display: none;">
-					<span class="col-sm-2">12</span>
-					<span class="col-sm-5">댓글 내용입니다.</span>
-					<span class="col-sm-2">user02</span>
-					<span class="col-sm-2"><button>삭제</button></span>
-				</li>
-			</ul>
-		</div>
-		<!-- 댓글페이징. -->
-		<div class="footer">
-			<nav aria-label="...">
-			  <ul class="pagination justify-content-center">
-			  <!--
-			    <li class="page-item disabled">
-			      <a class="page-link">Previous</a>
-			    </li>
-			    <li class="page-item"><a class="page-link" href="#">1</a></li>
-			    <li class="page-item active" aria-current="page">
-			      <a class="page-link" href="#">2</a>
-			    </li>
-			    <li class="page-item"><a class="page-link" href="#">3</a></li>
-			    <li class="page-item"><a class="page-link" href="#">4</a></li>
-			    <li class="page-item"><a class="page-link" href="#">5</a></li>
-			    <li class="page-item">
-			      <a class="page-link" href="#">Next</a>
-			    </li>
-			      -->
-			  </ul>
-			</nav>
-		</div>
+		<table id="example" class="display" style="width:100%">
+        <thead>
+            <tr>
+                <th>댓글 번호</th>
+                <th>댓글 내용</th>
+                <th>작성자</th>
+                <th>작성일시</th>
+            </tr>
+        </thead>
+        <tfoot>
+        </tfoot>
+    </table>
 		
 	</div>
 
@@ -122,11 +96,115 @@
 				.addEventListener('click', function(e) {
 					location.href = 'modifyBoard.do?bno=${board.boardNo}';
 				});
+		
+		
+		/* datatables 연습용. */
+		let table = $('#example').DataTable({
+		    ajax: 'replyList.do?bno=' + bno,
+		    columns: [
+		        { data: 'replyNo' },
+		        { data: 'replyContent' },
+		        { data: 'replyer' },
+		        { data: 'replyDate' }
+		    ],
+		    lengthMenu: [
+		        [5, 10, 50, -1],
+		        [5, 10, 50, 'All']
+		    ],
+		    columnDefs: [
+		        {
+		            // The `data` parameter refers to the data for the cell (defined by the
+		            // `data` option, which defaults to the column being worked with, in
+		            // this case `data: 0`.
+		            render: function (data, type, row) {
+		                return '<button class="btn btn-danger" onclick="deleteRow(' + row.replyNo + ')">삭제</button>';
+		            },
+		            targets: 4
+		        }
+		    ]
+		});
+		
+		
+		// 댓글 등록 이벤트.
+		$('#addReply').on('click', function () {
+		    $.ajax({
+		        url: 'addReply.do',
+		        data: {
+			            	replyer: replyer,
+			            	content: $('#content').val(),
+			            	bno: bno
+		        },
+		        dataType: 'json',
+		        success: function(result) {
+		        		if(result.retCode == 'Success'){
+									let rvo = result.retVal;
+			            // 받아온 데이터를 table.row.add에 추가
+			            table.row.add({ 'replyNo': rvo.replyNo,
+			                            'replyContent': rvo.replyContent,
+			                            'replyer': rvo.replyer,
+			                            'replyDate': rvo.replyDate
+			            }).draw(false);
+			            
+			            $('#content').val('');
+		        		}
+		        },
+		        error: function(err) {
+		        }
+		    });
+		});		
+		
+		//var table = $('#example').DataTable();
+		 
+		$('#example tbody').on('click', 'tr', function () {
+		    if ($(this).hasClass('selected')) {
+		        $(this).removeClass('selected');
+		    }
+		    else {
+		        table.$('tr.selected').removeClass('selected');
+		        $(this).addClass('selected');
+		    }
+				console.log('1 : ' + $('tr.selected').children('td:eq(0)').text());
+			
+		});
+		 
+		// 댓글 삭제 이벤트.
+		$('#deleteReply').click(function () {
+
+		    $.ajax({
+		        url: 'removeReply.do',
+		        data: {
+		        	rno: $('tr.selected').children('td:first').text()
+		        },
+		        dataType: 'json',
+		        success: function(result) {
+		        		if(result.retCode == 'Success'){
+							    table.row('.selected').remove().draw(false);
+		        		}
+		        },
+		        error: function(err) {
+		        }
+		    });
+		});
+		
+		function deleteRow(rno){
+		    $.ajax({
+		        url: 'removeReply.do',
+		        data: {
+		        	rno: rno
+		        },
+		        dataType: 'json',
+		        success: function(result) {
+		        		if(result.retCode == 'Success'){
+							    table.row('.selected').remove().draw(false);
+		        		}else{
+		        			alert('삭제 실패');
+		        		}
+		        },
+		        error: function(err) {
+		        	alert
+		        }
+		    });
+		}
+		
+
 	</script>
-
-<!-- 
-	<script src="js/boardService.js"></script>
-	<script src="js/board.js"></script>
- -->
-	<script src="js/boardJquery.js"></script>
-

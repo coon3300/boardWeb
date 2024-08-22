@@ -17,7 +17,9 @@ public class ReplyServiceImpl implements ReplyService{
 	public List<ReplyVO> replyList(SearchVO search) {
 		// TODO Auto-generated method stub
 //		return mapper.selectList(boardNo);
-		return mapper.selectListPaging(search);
+		//return mapper.selectListPaging(search);
+		// datatables 연습용.
+		return mapper.selectList(search.getBno());
 	}
 	@Override
 	public boolean addReply(ReplyVO rvo) {

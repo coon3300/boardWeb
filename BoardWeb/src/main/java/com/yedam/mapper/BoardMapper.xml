@@ -37,6 +37,53 @@
 		order by board_no						
 	</select>
 	
+	<select id="selectListCalendar" resultType="com.yedam.vo.CalendarVO">
+		select	title as "title"
+						,start_date as "start"
+						,end_date as "end"
+		from	tbl_schedule
+	</select>
+	<insert id="insertCalendar">
+		insert into tbl_schedule(
+			title
+			,start_date
+			<if test="end != null">
+			,end_date
+			</if>
+		)values(
+			#{title}
+			,#{start}
+			<if test="end != null">
+			,#{end}
+			</if>
+		)
+	</insert>
+	<select id="selectCalendar">
+		select  count(1)
+		from		tbl_schedule
+		where 	end_date = #{end}
+	</select>
+	<delete id="deleteCalendar">
+
+		delete 	
+		from		tbl_schedule
+		where		title = #{title}
+		and			start_date = #{start}
+		and			end_date = #{end}
+
+	</delete>	
+	
+	 <!-- 
+	<select id="selectList">
+            select b.*
+            from (select rownum rn, a.*
+                      from    (select *
+                               from tbl_board
+                               <include refid="selectCondition"></include>
+                               order by board_no desc) a ) b
+	</select>
+	  -->
+	
 	<!-- select id="selectListPaging" parameterType="int"-->
 	<select id="selectListPaging" parameterType="com.yedam.common.SearchVO">
             select b.*

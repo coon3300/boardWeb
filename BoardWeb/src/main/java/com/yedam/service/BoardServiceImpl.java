@@ -8,6 +8,7 @@ import com.yedam.common.DataSource;
 import com.yedam.common.SearchVO;
 import com.yedam.mapper.BoardMapper;
 import com.yedam.vo.BoardVO;
+import com.yedam.vo.CalendarVO;
 
 /**
  * 인터페이스(BoardServiceImpl)을 구현하는 구현객체.
@@ -25,7 +26,8 @@ public class BoardServiceImpl implements BoardService{
 //	}
 	@Override
 	public List<BoardVO> boardList(SearchVO search) {
-		return mapper.selectListPaging(search);
+		//return mapper.selectListPaging(search);
+		return mapper.selectList();
 	}
 
 //	@Override
@@ -62,6 +64,29 @@ public class BoardServiceImpl implements BoardService{
 	public BoardVO getBoard(int boardNo) {
 		// TODO Auto-generated method stub
 		return mapper.selectBoard(boardNo);
+	}
+
+	@Override
+	public List<CalendarVO> calendarList() {
+		return mapper.selectListCalendar();
+
+	}
+
+	@Override
+	public boolean addCalendar(CalendarVO calendar) {
+		return mapper.insertCalendar(calendar) == 1;
+
+	}
+
+	@Override
+	public boolean checkCalendar(CalendarVO calendar) {
+		return mapper.selectCalendar(calendar) == 1;
+	}
+
+	@Override
+	public boolean removeCalendar(CalendarVO calendar) {
+		return mapper.deleteCalendar(calendar) == 1;
+
 	}
 	
 	
