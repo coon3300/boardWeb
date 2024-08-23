@@ -24,26 +24,28 @@ public class ReplyListControl implements Control {
 		resp.setContentType("text/json;charset=utf-8");
 		
 		String bno = req.getParameter("bno");
-		//String page = req.getParameter("page");
+		//datatable 사용 시 page 주석
+		String page = req.getParameter("page");
 		
 		SearchVO search = new SearchVO();
 		search.setBno(Integer.parseInt(bno));
-		//search.setPage(Integer.parseInt(page));
+		
+		search.setPage(Integer.parseInt(page));
 		
 		ReplyService svc = new ReplyServiceImpl();
 //		List<ReplyVO> list = svc.replyList(Integer.parseInt(bno));
 		List<ReplyVO> list = svc.replyList(search);
 		
 		// datatables 연습.
-		Map<String, Object> map = new HashMap<>();
-		map.put("data",list);
+		//Map<String, Object> map = new HashMap<>();
+		//map.put("data",list);
 		
 		// json문자열.
 		Gson gson = new GsonBuilder().create();
 		String json = gson.toJson(list);
 		
 		// datatables 연습.
-		json = gson.toJson(map);
+		//json = gson.toJson(map);
 		
 		
 		resp.getWriter().print(json);

@@ -63,6 +63,7 @@
 		        			)
 		        	.then(result => result.json())
 		        	.then(result => {
+		        		console.log('result.retCode : ' + result.retCode);
 			        		if(result.retCode == 'Success'){
 			        			
 			        			let cvo = result.retVal;

@@ -126,8 +126,6 @@ input {
   background-color: #bbb;
 }
 </style>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-
 </head>
 <body>
 
@@ -147,36 +145,67 @@ input {
 </ul>
 
 <script>
-$('li').append($('<span/>').text('\u00D7').addClass('close'));
+// Create a "close" button and append it to each list item
+var myNodelist = document.getElementsByTagName("LI"); // li
+var i;
+for (i = 0; i < myNodelist.length; i++) {
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7"); // X
+  span.className = "close";
+  span.appendChild(txt);
+  myNodelist[i].appendChild(span);
+}
 
-// jQuery live event : li 이벤트를 상위 요소 ul에 event
-$('ul').on('click', 'li', function(){
-	$(this).toggleClass('checked');
+// Click on a close button to hide the current list item
+var close = document.getElementsByClassName("close");
+var i;
+for (i = 0; i < close.length; i++) {
+  close[i].onclick = function() {
+    var div = this.parentElement;
+    div.style.display = "none";
+  }
+}
+
+// Add a "checked" symbol when clicking on a list item
+var list = document.querySelector('ul'); // li 상위 요소에 이벤트
+list.addEventListener('click', function(ev) {
+	console.log(ev);
+  if (ev.target.tagName === 'LI') {
+    ev.target.classList.toggle('checked');
+  }
+}, false);
+/*
+document.querySelectorAll('li').forEach(list => {
+	list.addEventListener('click', function(ev) {
+		ev.target.classList.toggle('checked');
+	})
 })
-
-// jQuery live event : span.close 이벤트를 상위 요소 ul에 event
-$('ul').on('click', 'span.close', function(e){
-	e.stopPropagation();
-	//$(this).parent().css('display', 'none');
-	$(this).parent().hide(500);
-})
-
+*/
 // Create a new list item when clicking on the "Add" button
 function newElement() {
-  var inputValue = $('#myInput').val();
-  
+  var li = document.createElement("li");
+  var inputValue = document.getElementById("myInput").value;
+  var t = document.createTextNode(inputValue);
+  li.appendChild(t);
   if (inputValue === '') {
     alert("You must write something!");
-    return;
+  } else {
+    document.getElementById("myUL").appendChild(li);
   }
-  
-  let span = $('<span/>').text('\u00D7').addClass('close');
-  
-  $('#myUL').append($('<li/>').text(inputValue)
-													 		.append(span) // li 생성.
-    								);
+  document.getElementById("myInput").value = "";
 
-	$('#myInput').val('');
+  var span = document.createElement("SPAN");
+  var txt = document.createTextNode("\u00D7");
+  span.className = "close";
+  span.appendChild(txt);
+  li.appendChild(span);
+
+  for (i = 0; i < close.length; i++) {
+    close[i].onclick = function() {
+      var div = this.parentElement;
+      div.style.display = "none";
+    }
+  }
 }
 </script>
 

@@ -12,7 +12,7 @@
 	}
 </style>
 
-<h3>게시판 상세화면(board.jsp)</h3>
+<h3>게시판 상세화면(board2.jsp)</h3>
 
 
 
@@ -125,8 +125,13 @@
 	</script>
 
 <!-- 
-	<script src="js/boardService.js"></script>
-	<script src="js/board.js"></script>
- -->
+ --><!-- 
+  -->
+ <!-- 
 	<script src="js/boardJquery.js"></script>
+	<script src="js/jBoardService.js"></script>
+	<script src="js/board.js"></script>
+  -->
+	<script src="js/boardService.js"></script>
+	<script src="js/jBoard.js"></script>
 
