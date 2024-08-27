@@ -47,15 +47,11 @@
 		insert into tbl_schedule(
 			title
 			,start_date
-			<if test="end != null">
 			,end_date
-			</if>
 		)values(
 			#{title}
 			,#{start}
-			<if test="end != null">
 			,#{end}
-			</if>
 		)
 	</insert>
 	<select id="selectCalendar">

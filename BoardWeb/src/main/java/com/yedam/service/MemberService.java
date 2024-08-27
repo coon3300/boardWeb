@@ -17,6 +17,9 @@ public interface MemberService {
 	boolean removeStudent(String sno);
 	boolean addStudent(StudentVO svo);
 	
+	// 차트(작성자별 건수)
 	List<Map<String, Object>> getCountByMember();
-
+	
+	// 회원탈퇴.
+	String signOutProc(Map<String, String> map);
 }

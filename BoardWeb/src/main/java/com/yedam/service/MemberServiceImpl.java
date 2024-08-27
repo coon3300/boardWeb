@@ -51,5 +51,10 @@ public class MemberServiceImpl implements MemberService{
 
 	}
 
+	@Override
+	public String signOutProc(Map<String, String> map) {
+		return mapper.deleteMemberProc(map);
+	}
+
 	
 }

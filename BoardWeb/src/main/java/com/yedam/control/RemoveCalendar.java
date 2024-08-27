@@ -33,8 +33,10 @@ public class RemoveCalendar implements Control {
 		
 		if(svc.removeCalendar(cvo)) {
 			map.put("retCode", "Success");
+			map.put("retVal", cvo);			
 		}else {
 			map.put("retCode", "Fail");
+			map.put("retVal", null);
 		}
 		
 		//resp.setContentType("text/json;charset=utf-8");
