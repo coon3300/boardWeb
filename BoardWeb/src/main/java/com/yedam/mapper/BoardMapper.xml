@@ -65,8 +65,7 @@
 		from		tbl_schedule
 		where		title = #{title}
 		and			start_date = #{start}
-		and			end_date = #{end}
-
+  	AND 		end_date = #{end}
 	</delete>	
 	
 	 <!-- 
